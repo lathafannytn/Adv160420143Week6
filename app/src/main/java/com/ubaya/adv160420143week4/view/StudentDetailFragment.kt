@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
 import com.ubaya.adv160420143week4.R
 import com.ubaya.adv160420143week4.viewmodel.DetailViewModel
 import kotlinx.android.synthetic.main.fragment_student_detail.*
@@ -16,7 +15,8 @@ import kotlinx.android.synthetic.main.student_list_item.*
 
 class StudentDetailFragment : Fragment() {
     private lateinit var viewModel: DetailViewModel
-    private val studentListAdapter  = StudentListAdapter(arrayListOf())
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
