@@ -23,6 +23,7 @@ class StudentListAdapter(val studenList:ArrayList<Student>) :RecyclerView.Adapte
     }
 
     override fun onBindViewHolder(holder: StudentViewHolder, position: Int) {
+        val student = studenList[position]
         val txtId = holder.view.findViewById<TextView>(R.id.txtID)
         txtId.text = studenList[position].id
 
@@ -33,9 +34,17 @@ class StudentListAdapter(val studenList:ArrayList<Student>) :RecyclerView.Adapte
 
         val btnDetail = holder.view.findViewById<Button>(R.id.btnDetail)
         btnDetail.setOnClickListener {
-            val action = StudentListFragmentDirections.actionStudentDetail()
-            Navigation.findNavController(it).navigate(action)
+            val action = student.id?.let{ id ->
+                StudentListFragmentDirections.actionStudentDetail(id)
+            }
+            if (action != null)
+            {
+                Navigation.findNavController(it).navigate(action)
+            }
+            //val action = StudentListFragmentDirections.actionStudentDetail()
+            //Navigation.findNavController(it).navigate(action)
         }
+
     }
 
     override fun getItemCount(): Int {

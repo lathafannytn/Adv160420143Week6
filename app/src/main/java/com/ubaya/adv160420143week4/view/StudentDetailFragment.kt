@@ -58,7 +58,7 @@ class StudentDetailFragment : Fragment() {
             txtName.setText(it.name.toString())
             txtBod.setText(it.bod.toString())
             txtPhone.setText(it.phone.toString())
-            imageView2.loadImage(student?.photoUrl.toString(), progressBar)
+            imageView2.loadImage(student?.photoUrl, progressBar2)
         })
     }
 
