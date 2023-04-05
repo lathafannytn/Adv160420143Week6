@@ -9,6 +9,8 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.ubaya.adv160420143week4.R
 import com.ubaya.adv160420143week4.model.Student
+import com.ubaya.adv160420143week4.util.loadImage
+import kotlinx.android.synthetic.main.student_list_item.view.*
 
 
 class StudentListAdapter(val studenList:ArrayList<Student>) :RecyclerView.Adapter<StudentListAdapter.StudentViewHolder>(){
@@ -26,6 +28,8 @@ class StudentListAdapter(val studenList:ArrayList<Student>) :RecyclerView.Adapte
 
         val txtName = holder.view.findViewById<TextView>(R.id.txtName)
         txtName.text = studenList[position].name
+
+        holder.view.imageView.loadImage(studenList[position].photoUrl.toString(), holder.view.progressBar )
 
         val btnDetail = holder.view.findViewById<Button>(R.id.btnDetail)
         btnDetail.setOnClickListener {
