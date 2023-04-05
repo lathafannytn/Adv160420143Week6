@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
 import com.ubaya.adv160420143week4.R
-import com.ubaya.adv160420143week4.util.loadImage
 import com.ubaya.adv160420143week4.viewmodel.DetailViewModel
 import com.ubaya.adv160420143week4.viewmodel.ListViewModel
 import kotlinx.android.synthetic.main.fragment_student_detail.*
@@ -31,12 +30,8 @@ class StudentDetailFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        arguments?.let {
-            val studentID = StudentDetailFragmentArgs.fromBundle(requireArguments()).studentID
-            viewModel = ViewModelProvider(this).get(DetailViewModel::class.java)
-            viewModel.fetch(studentID)
-        }
-
+        viewModel = ViewModelProvider(this).get(DetailViewModel::class.java)
+        viewModel.fetch()
 
 //        viewModel.refresh()
 //        val recView = view.findViewById<RecyclerView>(R.id.recView)
@@ -47,7 +42,7 @@ class StudentDetailFragment : Fragment() {
 //        }
 
         viewModel.studentLiveData.observe(viewLifecycleOwner, Observer {
-            val student = viewModel.studentLiveData.value
+            
 
             val txtID = view.findViewById<TextInputEditText>(R.id.txtID)
             val txtName = view.findViewById<TextInputEditText>(R.id.txtName)
@@ -58,7 +53,6 @@ class StudentDetailFragment : Fragment() {
             txtName.setText(it.name.toString())
             txtBod.setText(it.bod.toString())
             txtPhone.setText(it.phone.toString())
-            imageView2.loadImage(student?.photoUrl, progressBar2)
         })
     }
 
