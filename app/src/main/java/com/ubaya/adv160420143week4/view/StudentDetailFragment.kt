@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_student_list.*
 import kotlinx.android.synthetic.main.student_list_item.*
 
 class StudentDetailFragment : Fragment() {
-    private lateinit var viewModel: DetailViewModel
+    private lateinit var viewModel: ListViewModel
 
 
     override fun onCreateView(
@@ -30,16 +30,16 @@ class StudentDetailFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel = ViewModelProvider(this).get(DetailViewModel::class.java)
-        viewModel.fetch()
+        viewModel = ViewModelProvider(this).get(ListViewModel::class.java)
+//        viewModel.fetch()
 
-//        viewModel.refresh()
-//        val recView = view.findViewById<RecyclerView>(R.id.recView)
-//        recView.layoutManager = LinearLayoutManager(context)
-//        //recView.adapter = studentListAdapter
-//        refreshLayout.setOnRefreshListener {
-//            viewModel.refresh()
-//        }
+        viewModel.refresh()
+        val recView = view.findViewById<RecyclerView>(R.id.recView)
+        recView.layoutManager = LinearLayoutManager(context)
+        //recView.adapter = studentListAdapter
+        refreshLayout.setOnRefreshListener {
+            viewModel.refresh()
+        }
 
         viewModel.studentLiveData.observe(viewLifecycleOwner, Observer {
             
