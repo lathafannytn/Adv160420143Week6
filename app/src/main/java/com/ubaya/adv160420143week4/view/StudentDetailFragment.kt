@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_student_list.*
 import kotlinx.android.synthetic.main.student_list_item.*
 
 class StudentDetailFragment : Fragment() {
-    private lateinit var viewModel: ListViewModel
+    private lateinit var viewModel: DetailViewModel
 
 
     override fun onCreateView(
@@ -30,24 +30,28 @@ class StudentDetailFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel = ViewModelProvider(this).get(ListViewModel::class.java)
-        viewModel.refresh()
-        val recView = view.findViewById<RecyclerView>(R.id.recView)
-        recView.layoutManager = LinearLayoutManager(context)
-        //recView.adapter = studentListAdapter
-        refreshLayout.setOnRefreshListener {
-            viewModel.refresh()
-        }
-        viewModel.studentsLD.observe(viewLifecycleOwner, Observer {
+        viewModel = ViewModelProvider(this).get(DetailViewModel::class.java)
+        viewModel.fetch()
 
-            var txtID = view.findViewById<TextInputEditText>(R.id.txtID)
-            var txtName = view.findViewById<TextInputEditText>(R.id.txtName)
-            var txtBod = view.findViewById<TextInputEditText>(R.id.txtBod)
-            var txtPhone = view.findViewById<TextInputEditText>(R.id.txtPhone)
+//        viewModel.refresh()
+//        val recView = view.findViewById<RecyclerView>(R.id.recView)
+//        recView.layoutManager = LinearLayoutManager(context)
+//        //recView.adapter = studentListAdapter
+//        refreshLayout.setOnRefreshListener {
+//            viewModel.refresh()
+//        }
+
+        viewModel.studentLiveData.observe(viewLifecycleOwner, Observer {
+            
+
+            val txtID = view.findViewById<TextInputEditText>(R.id.txtID)
+            val txtName = view.findViewById<TextInputEditText>(R.id.txtName)
+            val txtBod = view.findViewById<TextInputEditText>(R.id.txtBod)
+            val txtPhone = view.findViewById<TextInputEditText>(R.id.txtPhone)
 
             txtID.setText(it.id.toString())
             txtName.setText(it.name.toString())
-            txtBod.setText(it.dob.toString())
+            txtBod.setText(it.bod.toString())
             txtPhone.setText(it.phone.toString())
         })
     }
